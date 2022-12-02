@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:animations/animations.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geek_garden/home/controller/home_controller.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
@@ -29,6 +27,7 @@ class _AddProductState extends State<EditProduct> {
   TextEditingController rateProdukCtrl = TextEditingController();
   TextEditingController deskripsiProdukCtrl = TextEditingController();
 
+  @override
   void initState() {
     loadData();
     super.initState();
@@ -37,7 +36,6 @@ class _AddProductState extends State<EditProduct> {
   loadData() async {
     loading = true;
     return await HomeController.loadDataId(widget.id).then((value) {
-      print(value);
       namaProduk = value['name'];
       namaProdukCtrl.text = value['name'];
 
@@ -59,15 +57,14 @@ class _AddProductState extends State<EditProduct> {
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final heightCard = MediaQuery.of(context).size.height;
-    final widthCard = MediaQuery.of(context).size.width;
     if (loading == true) {
       return Scaffold(
           body: Stack(children: [
         Container(
-          color: Color.fromRGBO(20, 29, 46, 1),
+          color: const Color.fromRGBO(20, 29, 46, 1),
           width: double.infinity,
         ),
-        Center(
+        const Center(
             child: SpinKitChasingDots(color: Color.fromRGBO(255, 255, 255, 1)))
       ]));
     } else {
@@ -94,7 +91,7 @@ class _AddProductState extends State<EditProduct> {
                 height: heightCard / 39.8,
               ),
               onTap: () {
-                Navigator.pop(context);
+                Get.back();
               },
             ),
           ),
@@ -373,7 +370,6 @@ class _AddProductState extends State<EditProduct> {
   Future editProduct() async {
     var jmlError = 0;
     var msgError = [];
-    print(rateProduk);
 
     if (namaProduk == "") {
       jmlError++;

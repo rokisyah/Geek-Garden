@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -25,6 +26,12 @@ class Product {
 }
 
 class HomeController {
+  static Future loadFakeStore() async {
+    final response =
+        await http.get(Uri.parse('https://fakestoreapi.com/products'));
+    return response.body;
+  }
+
   static Future createProduct(name, price, rate, desc) async {
     final docProduct = FirebaseFirestore.instance.collection('products').doc();
     final product = Product(
@@ -47,7 +54,6 @@ class HomeController {
   static Future delete(id) async {
     final docProduct =
         FirebaseFirestore.instance.collection('products').doc(id);
-    // docProduct.update({'id': id});
     docProduct.delete();
     return '200';
   }
@@ -56,7 +62,6 @@ class HomeController {
     var collection = FirebaseFirestore.instance.collection('products');
     var docSnapshot = await collection.doc(id).get();
     if (docSnapshot.exists) {
-      print(docSnapshot.data());
       return (docSnapshot.data());
     }
   }
@@ -67,6 +72,14 @@ class CurrencyFormat {
     NumberFormat currencyFormatter = NumberFormat.currency(
       locale: 'id',
       symbol: 'Rp ',
+      decimalDigits: decimalDigit,
+    );
+    return currencyFormatter.format(number);
+  }
+
+  static String convertToDolar(dynamic number, int decimalDigit) {
+    NumberFormat currencyFormatter = NumberFormat.currency(
+      symbol: 'USD ',
       decimalDigits: decimalDigit,
     );
     return currencyFormatter.format(number);

@@ -7,19 +7,19 @@ import '../home/Screen/edit_product.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = Routes.HOME;
+  static const initial = Routes.home;
 
   static final routes = [
     GetPage(
-      name: Routes.HOME,
-      page: () => HomePage(),
+      name: Routes.home,
+      page: () => const HomePage(),
     ),
     GetPage(
-      name: Routes.ADDPRODUCT,
-      page: () => AddProduct(),
+      name: Routes.addproduct,
+      page: () => const AddProduct(),
     ),
     GetPage(
-        name: Routes.EDITPRODUCT,
+        name: Routes.editproduct,
         page: (() {
           return EditProduct(
             id: Get.arguments,

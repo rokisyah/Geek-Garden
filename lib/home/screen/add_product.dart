@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:animations/animations.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geek_garden/home/controller/home_controller.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 final GlobalKey<State> _keyLoader = GlobalKey<State>();
 
@@ -32,7 +30,6 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final heightCard = MediaQuery.of(context).size.height;
-    final widthCard = MediaQuery.of(context).size.width;
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -56,7 +53,7 @@ class _AddProductState extends State<AddProduct> {
               height: heightCard / 39.8,
             ),
             onTap: () {
-              Navigator.pop(context);
+              Get.back();
             },
           ),
         ),
@@ -328,7 +325,6 @@ class _AddProductState extends State<AddProduct> {
   Future insertProduct() async {
     var jmlError = 0;
     var msgError = [];
-    print(rateProduk);
 
     if (namaProduk == "") {
       jmlError++;
