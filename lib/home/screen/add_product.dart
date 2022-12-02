@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geek_garden/home/controller/home_controller.dart';
 import 'package:get/get.dart';
@@ -175,7 +174,8 @@ class _AddProductState extends State<AddProduct> {
                         });
                       },
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(1),
                       ], // Only numbers can be entered
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -334,6 +334,11 @@ class _AddProductState extends State<AddProduct> {
     if (hargaProduk <= 0) {
       jmlError++;
       msgError.add("Product Price cannot be 0");
+    }
+
+    if (rateProduk > 5) {
+      jmlError++;
+      msgError.add("Rate Value can't be greater than 5");
     }
 
     // ignore: unrelated_type_equality_checks

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:geek_garden/home/controller/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 0, // 1
           title: Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 12, 0),
-            child: Text('Products',
+            child: Text('Products $pilihtype',
                 style: TextStyle(
                   color: const Color.fromRGBO(255, 255, 255, 1),
                   fontSize: 16 * textScale,
@@ -105,7 +104,6 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: InkWell(
             borderRadius: const BorderRadius.all(Radius.zero),
             onTap: () {
-              // buildDetailData(index);
               Get.toNamed("/addproduct");
             },
             child: Container(
@@ -123,7 +121,11 @@ class _HomePageState extends State<HomePage> {
                       image: const AssetImage("assets/images/Batik_Card.png"),
                       alignment: Alignment.bottomLeft,
                     )),
-                child: Padding(
+                child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(251, 211, 9, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                    ),
                     padding: const EdgeInsets.all(10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -293,7 +295,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         builder: (context) => StatefulBuilder(builder: (context, setState) {
               return Container(
-                height: heightCard / 2.278095238,
+                height: heightCard / 4,
                 color: Colors.transparent,
                 child: Container(
                   decoration: const BoxDecoration(
@@ -365,7 +367,8 @@ class _HomePageState extends State<HomePage> {
                                   isExpanded: true,
                                   underline: Container(
                                       height: heightCard / 398,
-                                      color: Colors.black),
+                                      color: const Color.fromRGBO(
+                                          238, 242, 249, 1)),
                                   onChanged: (value) {
                                     setState(() {
                                       pilihtype = value.toString();
@@ -389,20 +392,21 @@ class _HomePageState extends State<HomePage> {
                             Center(
                                 child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(100, 40),
-                                  primary:
-                                      const Color.fromRGBO(238, 242, 249, 1)),
+                                fixedSize:
+                                    Size(widthCard / 3.9, heightCard / 19.9),
+                                primary: const Color.fromRGBO(251, 211, 9, 1),
+                              ),
                               onPressed: () {
                                 Get.back();
                                 refreshData();
                               },
-                              child: Text('CARI',
+                              child: Text('SEARCH',
                                   style: TextStyle(
                                       fontFamily: 'Outfit',
-                                      fontSize: 16 * textScale,
+                                      fontSize: 12 * textScale,
                                       color:
                                           const Color.fromRGBO(20, 29, 46, 1),
-                                      fontWeight: FontWeight.w500)),
+                                      fontWeight: FontWeight.w700)),
                             )),
                           ],
                         ),
@@ -425,7 +429,7 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           content: SizedBox(
-              height: MediaQuery.of(context).size.height / 2,
+              height: MediaQuery.of(context).size.height / 1.4,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -766,7 +770,6 @@ class _HomePageState extends State<HomePage> {
             children: [
               Expanded(
                   child: Container(
-                // width: widthCard / 2.407407407,
                 height: heightCard / 6.123076923,
                 decoration: const BoxDecoration(
                   color: Colors.grey,
